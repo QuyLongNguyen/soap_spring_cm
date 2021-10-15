@@ -1,112 +1,166 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.longnq.com/Customers/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Customers" targetNamespace="http://www.longnq.com/Customers/">
-  <wsdl:types>
-    <xsd:schema targetNamespace="http://www.longnq.com/Customers/">
-   
-   		<xsd:element name="customer" type="tns:Customer"/>
-   		<xsd:element name="customers" type="tns:Customers"/>
-   		<xsd:element name="customerId" type="tns:CustomerId"/>
-   
-        <xsd:complexType name="Customer">
-          <xsd:sequence>
-            <xsd:element name="id" type="xsd:integer"/>
-            <xsd:element name="firstName" type="xsd:string"/>
-            <xsd:element name="lastName" type="xsd:string"/>
-            <xsd:element name="email" type="xsd:string"/>
-          </xsd:sequence>
-        </xsd:complexType>
-        
-        <xsd:complexType name="Customers">
-        	<xsd:sequence>
-        		<xsd:element name="customer" type="tns:Customer" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        	</xsd:sequence>
-        </xsd:complexType>
-        
-        <xsd:simpleType name="CustomerId">
-        	<xsd:restriction base="xsd:integer"></xsd:restriction>
-        </xsd:simpleType>
-      
-        
-    </xsd:schema>
-    
-  </wsdl:types>
-  
-  <wsdl:message name="customers">
-    <wsdl:part element="tns:customers" name="parameters"/>
-  </wsdl:message>
-  
-  <wsdl:message name="allCustomers">
-  </wsdl:message>
-  
-  <wsdl:message name="customerId">
-    <wsdl:part element="tns:customerId" name="parameters"/>
-  </wsdl:message>
-  
-  <wsdl:message name="customer">
-    <wsdl:part element="tns:customer" name="parameters"/>
-  </wsdl:message>
-  
-  <wsdl:message name="newCustomer">
-    <wsdl:part element="tns:customer" name="parameters"/>
-  </wsdl:message>
-  
-  
-  <wsdl:portType name="CustomerPortType">
-    <wsdl:operation name="getCustomers">
-      <wsdl:input message="tns:allCustomers" name="allCustomers"></wsdl:input>
-      <wsdl:output message="tns:customers" name="customers"></wsdl:output>
-    </wsdl:operation>
-    
-    <wsdl:operation name="getCustomer">
-   	<wsdl:input message="tns:customerId" name="customerId"></wsdl:input>
-      <wsdl:output message="tns:customer" name="customer"></wsdl:output>
-    </wsdl:operation>
-    
-    <wsdl:operation name="addCustomer">
-    	<wsdl:input message="tns:newCustomer" name="newCustomer"></wsdl:input>
-      <wsdl:output message="tns:customer"></wsdl:output>
-    </wsdl:operation>
-  </wsdl:portType>
-  
-  
-  <wsdl:binding name="CustomerSoapBinding" type="tns:CustomerPortType">
-    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="getCustomers">
-      <soap:operation soapAction=""/>
- 		<wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    
-    <wsdl:operation name="getCustomer">
-      <soap:operation soapAction=""/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    
-    <wsdl:operation name="addCustomer">
-      <soap:operation soapAction=""/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    
-  </wsdl:binding>
-  
-  
-  <wsdl:service name="CustomerService">
-    <wsdl:port binding="tns:CustomerSoapBinding" name="CustomerSOAP">
-      <soap:address location="http://localhost:8080/my-customer/services/customerService"/>
-    </wsdl:port>
-  </wsdl:service>
+<wsdl:definitions
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.longnq.com/Customers/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Customers"
+	targetNamespace="http://www.longnq.com/Customers/">
+	<wsdl:types>
+		<xsd:schema
+			targetNamespace="http://www.longnq.com/Customers/">
+
+			<xsd:element name="customer" type="tns:Customer" />
+			<xsd:element name="customers" type="tns:Customers" />
+			<xsd:element name="customerId" type="tns:CustomerId" />
+			<xsd:element name="updatedCustomer" type="tns:Customer" />
+			<xsd:element name="deletedCustomerId" type="tns:CustomerId" />
+			<xsd:element name="boolResult" type="xsd:boolean" />
+
+			<xsd:complexType name="Customer">
+				<xsd:sequence>
+					<xsd:element name="id" type="xsd:integer" />
+					<xsd:element name="firstName" type="xsd:string" />
+					<xsd:element name="lastName" type="xsd:string" />
+					<xsd:element name="email" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="Customers">
+				<xsd:sequence>
+					<xsd:element name="customer" type="tns:Customer"
+						minOccurs="0" maxOccurs="unbounded"></xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="CustomerId">
+				<xsd:restriction base="xsd:integer"></xsd:restriction>
+			</xsd:simpleType>
+
+		</xsd:schema>
+
+	</wsdl:types>
+
+	<wsdl:message name="customers">
+		<wsdl:part element="tns:customers" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="allCustomers">
+	</wsdl:message>
+
+	<wsdl:message name="customerId">
+		<wsdl:part element="tns:customerId" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="customer">
+		<wsdl:part element="tns:customer" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="newCustomer">
+		<wsdl:part element="tns:customer" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="updatedCustomer">
+		<wsdl:part element="tns:updatedCustomer" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:message name="deletedCustomerId">
+		<wsdl:part element="tns:deletedCustomerId" name="parameters" />
+	</wsdl:message>
+	
+	<wsdl:message name="success">
+		<wsdl:part element="tns:boolResult" name="parameters" />
+	</wsdl:message>
+
+	<wsdl:portType name="CustomerPortType">
+		<wsdl:operation name="getCustomers">
+			<wsdl:input message="tns:allCustomers" name="allCustomers"></wsdl:input>
+			<wsdl:output message="tns:customers" name="customers"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getCustomer">
+			<wsdl:input message="tns:customerId" name="customerId"></wsdl:input>
+			<wsdl:output message="tns:customer" name="customer"></wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="addCustomer">
+			<wsdl:input message="tns:newCustomer" name="newCustomer"></wsdl:input>
+			<wsdl:output message="tns:success"></wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="updateCustomer">
+			<wsdl:input message="tns:updatedCustomer" name="updatedCustomer"></wsdl:input>
+			<wsdl:output message="tns:success"></wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteCustomer">
+			<wsdl:input message="tns:deletedCustomerId" name="deletedCustomerId"></wsdl:input>
+			<wsdl:output message="tns:success"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+	<wsdl:binding name="CustomerSoapBinding"
+		type="tns:CustomerPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="getCustomers">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getCustomer">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="addCustomer">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="updateCustomer">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteCustomer">
+			<soap:operation soapAction="" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+
+	<wsdl:service name="CustomerService">
+		<wsdl:port binding="tns:CustomerSoapBinding"
+			name="CustomerSOAP">
+			<soap:address
+				location="http://localhost:8080/my-customer/services/customerService" />
+		</wsdl:port>
+	</wsdl:service>
 </wsdl:definitions>

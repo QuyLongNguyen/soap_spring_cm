@@ -33,10 +33,56 @@ public class CustomerDaoImpl implements CustomerDao{
 	@Transactional
 	public Customer getCustomer(BigInteger id) {
 		
-		System.out.println("in customer");
 		Session session = entityManager.unwrap(Session.class);
 		Customer customer = session.get(Customer.class,id);
-		
+
 		return customer;
+	}
+
+	@Override
+	@Transactional
+	public boolean addCustomer(Customer customer) {
+		
+		try {
+			Session session = entityManager.unwrap(Session.class);
+			customer.setId(BigInteger.valueOf(0));
+			session.save(customer);
+		}catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
+
+	@Override
+	@Transactional
+	public boolean updateCustomer(Customer customer) {
+		
+		Session session = entityManager.unwrap(Session.class);
+		try {
+			session.update(customer);
+		}catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	@Transactional
+	public boolean deleteCustomer(BigInteger id) {
+		
+		Session session = entityManager.unwrap(Session.class);
+		try {
+			Customer customer = getCustomer(id);
+			if(customer == null) {
+				return false;
+			}
+			session.delete(customer);
+			
+		}catch (Exception e) {
+			return false;
+		}
+		
+		return true;
 	}
 }
